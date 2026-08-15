@@ -1,6 +1,7 @@
 import sys
 
 from .analyzer import load_dataset, analyze_dataset, detect_outliers
+from .report import DatasetReport
 from .visualizer import plot_numeric_distribution, plot_correlation_heatmap
 
 
@@ -13,6 +14,8 @@ def main():
     dataset = load_dataset(file_path)
     analysis = analyze_dataset(dataset)
     outliers = detect_outliers(dataset)
+
+    report = DatasetReport(analysis, outliers)
 
     numeric_columns = [
         column
@@ -29,15 +32,15 @@ def main():
     heatmap_path = plot_correlation_heatmap(dataset)
     print(f"Correlation heatmap saved to: {heatmap_path}")
 
-    print("\n=== DATA INSPECTOR REPORT ===")
-    print(f"Rows: {analysis['rows']}")
-    print(f"Columns: {analysis['columns']}")
-    print(f"Duplicate rows: {analysis['duplicate_rows']}")
+    print()
 
-    print("\n--- Missing Values ---")
-    for column, count in analysis["missing_values"].items():
-        percentage = analysis["missing_percentages"][column]
-        print(f"- {column}: {count} ({percentage}%)")
+    for line in report.summary_lines():
+        print(line)
+
+    print()
+
+    for line in report.missing_value_lines():
+        print(line)
 
     print("\n--- Data Types ---")
     for column, dtype in analysis["data_types"].items():
@@ -50,9 +53,10 @@ def main():
         print(f"  min: {stats.get('min')}")
         print(f"  max: {stats.get('max')}")
 
-    print("\n--- Potential Outliers ---")
-    for column, count in outliers.items():
-        print(f"- {column}: {count}")
+    print()
+
+    for line in report.outlier_lines():
+        print(line)
 
     print("\n--- Correlations ---")
     for column, values in analysis["correlations"].items():
