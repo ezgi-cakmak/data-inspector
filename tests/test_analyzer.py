@@ -1,6 +1,6 @@
 import pandas as pd
 
-from data_inspector.analyzer import analyze_dataset, detect_outliers
+from data_inspector.analyzer import analyze_dataset, detect_outliers, load_dataset
 
 
 def test_analyze_dataset_basic_information():
@@ -44,3 +44,13 @@ def test_detect_outliers():
     result = detect_outliers(df)
 
     assert result["value"] == 1
+
+
+def test_load_dataset(tmp_path):
+    file_path = tmp_path / "sample.csv"
+    file_path.write_text("age,score\n20,80\n25,90\n")
+
+    df = load_dataset(str(file_path))
+
+    assert len(df) == 2
+    assert list(df.columns) == ["age", "score"]
