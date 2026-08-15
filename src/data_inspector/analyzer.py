@@ -18,6 +18,14 @@ def load_dataset(file_path: str) -> pd.DataFrame:
 
 def analyze_dataset(df: pd.DataFrame) -> dict:
     """Compute basic data quality checks and exploratory statistics."""
+    numeric_df = df.select_dtypes(include="number")
+
+    numeric_summary = (
+        numeric_df.describe().to_dict()
+        if not numeric_df.empty
+        else {}
+    )
+
     return {
         "rows": len(df),
         "columns": len(df.columns),
@@ -25,11 +33,11 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "missing_percentages": (df.isnull().mean() * 100).round(2).to_dict(),
         "duplicate_rows": int(df.duplicated().sum()),
         "data_types": df.dtypes.astype(str).to_dict(),
-        "numeric_summary": df.describe().to_dict(),
-        "numeric_columns": df.select_dtypes(include="number").columns.tolist(),
+        "numeric_summary": numeric_summary,
+        "numeric_columns": numeric_df.columns.tolist(),
         "categorical_columns": df.select_dtypes(exclude="number").columns.tolist(),
         "categorical_summary": summarize_categorical_columns(df),
-        "correlations": df.select_dtypes(include="number").corr().round(2).to_dict(),
+        "correlations": numeric_df.corr().round(2).to_dict(),
     }
 
 

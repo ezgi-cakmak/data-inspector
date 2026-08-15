@@ -30,9 +30,13 @@ def plot_numeric_distribution(
 def plot_correlation_heatmap(
     df: pd.DataFrame,
     output_dir: str = "plots",
-) -> Path:
+) -> Path | None:
     """Create and save a correlation heatmap for numeric columns."""
     numeric_df = df.select_dtypes(include="number")
+
+    if numeric_df.empty:
+        return None
+
     correlation_matrix = numeric_df.corr()
 
     output_path = Path(output_dir)

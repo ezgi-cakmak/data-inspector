@@ -17,6 +17,50 @@ Duplicate rows: 0
 - Cabin: 687 (77.1%)
 - Embarked: 2 (0.22%)
 
+--- Data Types ---
+- PassengerId: int64
+- Survived: int64
+- Pclass: int64
+- Name: str
+- Sex: str
+- Age: float64
+- SibSp: int64
+- Parch: int64
+- Ticket: str
+- Fare: float64
+- Cabin: str
+- Embarked: str
+
+--- Numeric Summary ---
+- PassengerId:
+  mean: 446.0
+  min: 1.0
+  max: 891.0
+- Survived:
+  mean: 0.3838383838383838
+  min: 0.0
+  max: 1.0
+- Pclass:
+  mean: 2.308641975308642
+  min: 1.0
+  max: 3.0
+- Age:
+  mean: 29.69911764705882
+  min: 0.42
+  max: 80.0
+- SibSp:
+  mean: 0.5230078563411896
+  min: 0.0
+  max: 8.0
+- Parch:
+  mean: 0.38159371492704824
+  min: 0.0
+  max: 6.0
+- Fare:
+  mean: 32.204207968574636
+  min: 0.0
+  max: 512.3292
+
 --- Categorical Summary ---
 - Name:
   unique values: 891
@@ -47,3 +91,77 @@ Duplicate rows: 0
 - SibSp: 46
 - Parch: 213
 - Fare: 116
+
+--- Correlations ---
+- PassengerId:
+  PassengerId: 1.0
+  Survived: -0.01
+  Pclass: -0.04
+  Age: 0.04
+  SibSp: -0.06
+  Parch: -0.0
+  Fare: 0.01
+- Survived:
+  PassengerId: -0.01
+  Survived: 1.0
+  Pclass: -0.34
+  Age: -0.08
+  SibSp: -0.04
+  Parch: 0.08
+  Fare: 0.26
+- Pclass:
+  PassengerId: -0.04
+  Survived: -0.34
+  Pclass: 1.0
+  Age: -0.37
+  SibSp: 0.08
+  Parch: 0.02
+  Fare: -0.55
+- Age:
+  PassengerId: 0.04
+  Survived: -0.08
+  Pclass: -0.37
+  Age: 1.0
+  SibSp: -0.31
+  Parch: -0.19
+  Fare: 0.1
+- SibSp:
+  PassengerId: -0.06
+  Survived: -0.04
+  Pclass: 0.08
+  Age: -0.31
+  SibSp: 1.0
+  Parch: 0.41
+  Fare: 0.16
+- Parch:
+  PassengerId: -0.0
+  Survived: 0.08
+  Pclass: 0.02
+  Age: -0.19
+  SibSp: 0.41
+  Parch: 1.0
+  Fare: 0.22
+- Fare:
+  PassengerId: 0.01
+  Survived: 0.26
+  Pclass: -0.55
+  Age: 0.1
+  SibSp: 0.16
+  Parch: 0.22
+  Fare: 1.0
+
+--- Numeric Columns ---
+- PassengerId
+- Survived
+- Pclass
+- Age
+- SibSp
+- Parch
+- Fare
+
+--- Categorical Columns ---
+- Name
+- Sex
+- Ticket
+- Cabin
+- Embarked

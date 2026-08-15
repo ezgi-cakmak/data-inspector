@@ -90,6 +90,14 @@ def test_report_export(tmp_path):
         "duplicate_rows": 0,
         "missing_values": {"city": 0, "score": 0},
         "missing_percentages": {"city": 0.0, "score": 0.0},
+        "data_types": {"city": "str", "score": "int64"},
+        "numeric_summary": {
+            "score": {
+                "mean": 15.0,
+                "min": 10.0,
+                "max": 20.0,
+            }
+        },
         "categorical_summary": {
             "city": {
                 "unique_values": 2,
@@ -97,6 +105,13 @@ def test_report_export(tmp_path):
                 "frequency": 1,
             }
         },
+        "correlations": {
+            "score": {
+                "score": 1.0,
+            }
+        },
+        "numeric_columns": ["score"],
+        "categorical_columns": ["city"],
     }
 
     outliers = {"score": 0}
@@ -111,3 +126,6 @@ def test_report_export(tmp_path):
     assert "DATA INSPECTOR REPORT" in content
     assert "Dortmund" in content
     assert "Potential Outliers" in content
+    assert "Data Types" in content
+    assert "Numeric Summary" in content
+    assert "Correlations" in content

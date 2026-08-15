@@ -31,7 +31,10 @@ def main():
         print(f"Distribution plot saved to: {plot_path}")
 
     heatmap_path = plot_correlation_heatmap(dataset)
-    print(f"Correlation heatmap saved to: {heatmap_path}")
+    if heatmap_path is not None:
+        print(f"Correlation heatmap saved to: {heatmap_path}")
+    else:
+        print("Correlation heatmap skipped: no numeric columns found.")
 
     report_path = report.save()
     print(f"Text report saved to: {report_path}")
