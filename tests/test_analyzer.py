@@ -1,5 +1,5 @@
-import pytest
 import pandas as pd
+import pytest
 
 from data_inspector.analyzer import analyze_dataset, detect_outliers, load_dataset
 
