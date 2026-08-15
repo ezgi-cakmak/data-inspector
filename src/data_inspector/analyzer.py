@@ -1,0 +1,24 @@
+from pathlib import Path
+
+import pandas as pd
+
+
+def load_dataset(file_path: str) -> pd.DataFrame:
+    """Load a CSV file and return it as a pandas DataFrame."""
+    path = Path(file_path)
+
+    if not path.exists():
+        raise FileNotFoundError(f"File not found: {file_path}")
+
+    if path.suffix.lower() != ".csv":
+        raise ValueError("Only CSV files are currently supported.")
+
+    return pd.read_csv(path)
+def analyze_dataset(df: pd.DataFrame) -> dict:
+    return {
+        "rows": len(df),
+        "columns": len(df.columns),
+        "missing_values": df.isnull().sum().to_dict(),
+        "duplicate_rows": int(df.duplicated().sum()),
+        "data_types": df.dtypes.astype(str).to_dict(),
+    }
