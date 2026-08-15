@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from data_inspector.analyzer import analyze_dataset, detect_outliers, load_dataset
+from data_inspector.report import DatasetReport
 
 
 def test_analyze_dataset_basic_information():
@@ -35,6 +36,23 @@ def test_analyze_dataset_missing_values():
     assert result["missing_percentages"]["score"] == 33.33
 
 
+def test_analyze_dataset_categorical_summary():
+    df = pd.DataFrame(
+        {
+            "city": ["Dortmund", "Essen", "Dortmund", None],
+            "score": [10, 20, 30, 40],
+        }
+    )
+
+    result = analyze_dataset(df)
+
+    city_summary = result["categorical_summary"]["city"]
+
+    assert city_summary["unique_values"] == 2
+    assert city_summary["most_frequent"] == "Dortmund"
+    assert city_summary["frequency"] == 2
+
+
 def test_detect_outliers():
     df = pd.DataFrame(
         {
@@ -56,9 +74,40 @@ def test_load_dataset(tmp_path):
     assert len(df) == 2
     assert list(df.columns) == ["age", "score"]
 
+
 def test_load_dataset_rejects_non_csv(tmp_path):
     file_path = tmp_path / "sample.txt"
     file_path.write_text("some text")
 
     with pytest.raises(ValueError):
         load_dataset(str(file_path))
+
+
+def test_report_export(tmp_path):
+    analysis = {
+        "rows": 2,
+        "columns": 2,
+        "duplicate_rows": 0,
+        "missing_values": {"city": 0, "score": 0},
+        "missing_percentages": {"city": 0.0, "score": 0.0},
+        "categorical_summary": {
+            "city": {
+                "unique_values": 2,
+                "most_frequent": "Dortmund",
+                "frequency": 1,
+            }
+        },
+    }
+
+    outliers = {"score": 0}
+
+    report = DatasetReport(analysis, outliers)
+    file_path = report.save(str(tmp_path))
+
+    assert file_path.exists()
+
+    content = file_path.read_text(encoding="utf-8")
+
+    assert "DATA INSPECTOR REPORT" in content
+    assert "Dortmund" in content
+    assert "Potential Outliers" in content
