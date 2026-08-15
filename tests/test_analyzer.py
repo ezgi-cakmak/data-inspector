@@ -1,3 +1,4 @@
+import pytest
 import pandas as pd
 
 from data_inspector.analyzer import analyze_dataset, detect_outliers, load_dataset
@@ -54,3 +55,10 @@ def test_load_dataset(tmp_path):
 
     assert len(df) == 2
     assert list(df.columns) == ["age", "score"]
+
+def test_load_dataset_rejects_non_csv(tmp_path):
+    file_path = tmp_path / "sample.txt"
+    file_path.write_text("some text")
+
+    with pytest.raises(ValueError):
+        load_dataset(str(file_path))
