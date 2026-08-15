@@ -35,6 +35,10 @@ def main():
    for column in analysis["numeric_columns"]:
        print(f"- {column}")
 
+   print("Categorical columns:")
+   for column in analysis["categorical_columns"]:
+       print(f"- {column}")
+
    print("Column names:")
    for column in dataset.columns:
        print(f"- {column}")

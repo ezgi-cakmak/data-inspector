@@ -24,4 +24,5 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "data_types": df.dtypes.astype(str).to_dict(),
         "numeric_summary": df.describe().to_dict(),
         "numeric_columns": df.select_dtypes(include="number").columns.tolist(),
+        "categorical_columns": df.select_dtypes(exclude="number").columns.tolist(),
     }
