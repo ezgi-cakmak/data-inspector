@@ -1,7 +1,7 @@
 import sys
 
 from .analyzer import load_dataset, analyze_dataset, detect_outliers
-from .visualizer import plot_numeric_distribution
+from .visualizer import plot_numeric_distribution, plot_correlation_heatmap
 
 
 def main():
@@ -16,6 +16,9 @@ def main():
    if "Age" in dataset.columns:
        plot_path = plot_numeric_distribution(dataset, "Age")
        print(f"Distribution plot saved to: {plot_path}")
+
+   heatmap_path = plot_correlation_heatmap(dataset)
+   print(f"Correlation heatmap saved to: {heatmap_path}")
 
    print(f"Rows: {analysis['rows']}")
    print(f"Columns: {analysis['columns']}")
