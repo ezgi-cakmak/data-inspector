@@ -1,6 +1,7 @@
 import sys
 
 from .analyzer import load_dataset, analyze_dataset, detect_outliers
+from .visualizer import plot_numeric_distribution
 
 
 def main():
@@ -12,6 +13,9 @@ def main():
    dataset = load_dataset(file_path)
    analysis = analyze_dataset(dataset)
    outliers = detect_outliers(dataset)
+   if "Age" in dataset.columns:
+       plot_path = plot_numeric_distribution(dataset, "Age")
+       print(f"Distribution plot saved to: {plot_path}")
 
    print(f"Rows: {analysis['rows']}")
    print(f"Columns: {analysis['columns']}")
