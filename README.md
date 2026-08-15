@@ -98,9 +98,11 @@ The tests cover:
 
 - basic dataset analysis
 - missing-value calculations
+- categorical column summaries
 - IQR-based outlier detection
 - CSV file loading
 - validation of unsupported file formats
+- text report export
 
 ## Project Structure
 
