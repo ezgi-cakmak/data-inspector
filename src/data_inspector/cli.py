@@ -54,6 +54,13 @@ def main():
         print(f"  min: {stats.get('min')}")
         print(f"  max: {stats.get('max')}")
 
+    print("\n--- Categorical Summary ---")
+    for column, stats in analysis["categorical_summary"].items():
+        print(f"- {column}:")
+        print(f"  unique values: {stats['unique_values']}")
+        print(f"  most frequent: {stats['most_frequent']}")
+        print(f"  frequency: {stats['frequency']}")
+
     print()
 
     for line in report.outlier_lines():

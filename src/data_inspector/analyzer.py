@@ -28,8 +28,35 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "numeric_summary": df.describe().to_dict(),
         "numeric_columns": df.select_dtypes(include="number").columns.tolist(),
         "categorical_columns": df.select_dtypes(exclude="number").columns.tolist(),
+        "categorical_summary": summarize_categorical_columns(df),
         "correlations": df.select_dtypes(include="number").corr().round(2).to_dict(),
     }
+
+
+def summarize_categorical_columns(df: pd.DataFrame) -> dict:
+    """Summarize categorical columns using unique and most frequent values."""
+    summary = {}
+
+    categorical_columns = df.select_dtypes(exclude="number").columns
+
+    for column in categorical_columns:
+        non_missing_values = df[column].dropna()
+        value_counts = non_missing_values.value_counts()
+
+        if value_counts.empty:
+            most_frequent = None
+            frequency = 0
+        else:
+            most_frequent = value_counts.index[0]
+            frequency = int(value_counts.iloc[0])
+
+        summary[column] = {
+            "unique_values": int(non_missing_values.nunique()),
+            "most_frequent": most_frequent,
+            "frequency": frequency,
+        }
+
+    return summary
 
 
 def detect_outliers(df: pd.DataFrame) -> dict:
