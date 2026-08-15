@@ -13,8 +13,16 @@ def main():
    dataset = load_dataset(file_path)
    analysis = analyze_dataset(dataset)
    outliers = detect_outliers(dataset)
-   if "Age" in dataset.columns:
-       plot_path = plot_numeric_distribution(dataset, "Age")
+   numeric_columns = [
+       column
+       for column in analysis["numeric_columns"]
+       if "id" not in column.lower()
+          and dataset[column].nunique() > 10
+   ]
+
+   if numeric_columns:
+       column = numeric_columns[0]
+       plot_path = plot_numeric_distribution(dataset, column)
        print(f"Distribution plot saved to: {plot_path}")
 
    heatmap_path = plot_correlation_heatmap(dataset)
