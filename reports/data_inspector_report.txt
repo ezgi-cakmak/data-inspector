@@ -1,0 +1,49 @@
+=== DATA INSPECTOR REPORT ===
+Rows: 891
+Columns: 12
+Duplicate rows: 0
+
+--- Missing Values ---
+- PassengerId: 0 (0.0%)
+- Survived: 0 (0.0%)
+- Pclass: 0 (0.0%)
+- Name: 0 (0.0%)
+- Sex: 0 (0.0%)
+- Age: 177 (19.87%)
+- SibSp: 0 (0.0%)
+- Parch: 0 (0.0%)
+- Ticket: 0 (0.0%)
+- Fare: 0 (0.0%)
+- Cabin: 687 (77.1%)
+- Embarked: 2 (0.22%)
+
+--- Categorical Summary ---
+- Name:
+  unique values: 891
+  most frequent: Braund, Mr. Owen Harris
+  frequency: 1
+- Sex:
+  unique values: 2
+  most frequent: male
+  frequency: 577
+- Ticket:
+  unique values: 681
+  most frequent: 347082
+  frequency: 7
+- Cabin:
+  unique values: 147
+  most frequent: G6
+  frequency: 4
+- Embarked:
+  unique values: 3
+  most frequent: S
+  frequency: 644
+
+--- Potential Outliers ---
+- PassengerId: 0
+- Survived: 0
+- Pclass: 0
+- Age: 11
+- SibSp: 46
+- Parch: 213
+- Fare: 116

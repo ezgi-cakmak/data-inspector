@@ -14,11 +14,13 @@ Data Inspector provides:
 - duplicate-row detection
 - separation of numerical and categorical columns
 - descriptive statistics for numerical variables
+- summaries of categorical variables, including unique and most frequent values
 - IQR-based potential outlier detection
 - correlation analysis
 - automatic distribution plots for suitable numerical variables
 - a correlation heatmap
 - formatted command-line reports
+- automatic export of the analysis report to a text file
 
 ## Example Output
 
@@ -66,17 +68,18 @@ uv run -m data_inspector my_dataset.csv
 
 Data Inspector prints the analysis report directly to the terminal.
 
-Generated visualizations are saved automatically in the `plots/` directory.
+Generated visualizations are saved automatically in the `plots/` directory. A text summary of the analysis is also exported to `reports/data_inspector_report.txt`.
 
 ## Analysis Report
 
-The command-line report contains:
+The analysis report contains:
 
 - number of rows and columns
 - duplicate-row count
 - missing-value counts and percentages
 - detected data types
-- descriptive statistics
+- descriptive statistics for numerical variables
+- summaries of categorical variables
 - potential outlier counts
 - correlations between numerical variables
 - numerical and categorical column lists
@@ -116,6 +119,8 @@ data-inspector/
 ├── plots/
 │   ├── Age_distribution.png
 │   └── correlation_heatmap.png
+├── reports/
+│   └── data_inspector_report.txt
 ├── .gitignore
 ├── pyproject.toml
 ├── uv.lock
@@ -133,6 +138,7 @@ The project is organized into reusable components.
 - loading CSV datasets
 - performing basic dataset analysis
 - calculating missing-value statistics
+- generating summaries for categorical variables
 - calculating correlations
 - detecting potential outliers using the IQR method
 
@@ -145,11 +151,11 @@ The project is organized into reusable components.
 
 ### Report
 
-`report.py` contains the `DatasetReport` class, which formats analysis results for command-line output.
+`report.py` contains the `DatasetReport` class, which formats analysis results for command-line output and exports a text report to the `reports/` directory.
 
 ### Command-Line Interface
 
-`cli.py` coordinates dataset loading, analysis, visualization, and report generation.
+`cli.py` coordinates dataset loading, analysis, visualization, report generation, and report export.
 
 `__main__.py` allows the package to be executed directly with:
 
@@ -183,6 +189,5 @@ Possible extensions of the project include:
 
 - support for additional file formats such as Excel and JSON
 - configurable visualization options
-- export of analysis results to a report file
 - additional statistical summaries
 - more advanced data-quality checks
