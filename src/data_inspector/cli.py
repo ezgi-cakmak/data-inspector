@@ -24,6 +24,13 @@ def main():
     for column, dtype in analysis["data_types"].items():
         print(f"- {column}: {dtype}")
 
+    print("Numeric summary:")
+    for column, stats in analysis["numeric_summary"].items():
+        print(f"- {column}:")
+        print(f"  mean: {stats.get('mean')}")
+        print(f"  min: {stats.get('min')}")
+        print(f"  max: {stats.get('max')}")
+
     print("Column names:")
     for column in dataset.columns:
         print(f"- {column}")

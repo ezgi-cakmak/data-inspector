@@ -14,6 +14,7 @@ def load_dataset(file_path: str) -> pd.DataFrame:
         raise ValueError("Only CSV files are currently supported.")
 
     return pd.read_csv(path)
+
 def analyze_dataset(df: pd.DataFrame) -> dict:
     return {
         "rows": len(df),
@@ -21,4 +22,5 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "missing_values": df.isnull().sum().to_dict(),
         "duplicate_rows": int(df.duplicated().sum()),
         "data_types": df.dtypes.astype(str).to_dict(),
+        "numeric_summary": df.describe().to_dict(),
     }
