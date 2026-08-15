@@ -26,6 +26,7 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "numeric_summary": df.describe().to_dict(),
         "numeric_columns": df.select_dtypes(include="number").columns.tolist(),
         "categorical_columns": df.select_dtypes(exclude="number").columns.tolist(),
+        "correlations": df.select_dtypes(include="number").corr().round(2).to_dict(),
     }
 
 def detect_outliers(df: pd.DataFrame) -> dict:

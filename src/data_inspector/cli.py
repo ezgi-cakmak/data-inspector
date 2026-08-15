@@ -37,6 +37,12 @@ def main():
    for column, count in outliers.items():
        print(f"- {column}: {count}")
 
+       print("Correlations:")
+       for column, values in analysis["correlations"].items():
+           print(f"- {column}:")
+           for other_column, correlation in values.items():
+               print(f"  {other_column}: {correlation}")
+
    print("Numeric columns:")
    for column in analysis["numeric_columns"]:
        print(f"- {column}")
