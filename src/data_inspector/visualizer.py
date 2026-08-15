@@ -1,8 +1,15 @@
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import pandas as pd
 
-def plot_numeric_distribution(df, column: str, output_dir: str = "plots"):
+
+def plot_numeric_distribution(
+    df: pd.DataFrame,
+    column: str,
+    output_dir: str = "plots",
+) -> Path:
+    """Create and save a histogram for a numeric column."""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
@@ -19,7 +26,12 @@ def plot_numeric_distribution(df, column: str, output_dir: str = "plots"):
 
     return file_path
 
-def plot_correlation_heatmap(df, output_dir: str = "plots"):
+
+def plot_correlation_heatmap(
+    df: pd.DataFrame,
+    output_dir: str = "plots",
+) -> Path:
+    """Create and save a correlation heatmap for numeric columns."""
     numeric_df = df.select_dtypes(include="number")
     correlation_matrix = numeric_df.corr()
 

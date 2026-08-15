@@ -15,7 +15,9 @@ def load_dataset(file_path: str) -> pd.DataFrame:
 
     return pd.read_csv(path)
 
+
 def analyze_dataset(df: pd.DataFrame) -> dict:
+    """Compute basic data quality checks and exploratory statistics."""
     return {
         "rows": len(df),
         "columns": len(df.columns),
@@ -29,7 +31,9 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "correlations": df.select_dtypes(include="number").corr().round(2).to_dict(),
     }
 
+
 def detect_outliers(df: pd.DataFrame) -> dict:
+    """Count potential outliers in numeric columns using the IQR rule."""
     outliers = {}
 
     numeric_columns = df.select_dtypes(include="number").columns

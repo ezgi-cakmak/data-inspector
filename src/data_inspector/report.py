@@ -1,9 +1,12 @@
 class DatasetReport:
+    """Format dataset analysis results for terminal output."""
+
     def __init__(self, analysis: dict, outliers: dict):
         self.analysis = analysis
         self.outliers = outliers
 
     def summary_lines(self) -> list[str]:
+        """Return the general dataset summary."""
         lines = [
             "=== DATA INSPECTOR REPORT ===",
             f"Rows: {self.analysis['rows']}",
@@ -13,6 +16,7 @@ class DatasetReport:
         return lines
 
     def missing_value_lines(self) -> list[str]:
+        """Return formatted missing-value information."""
         lines = ["--- Missing Values ---"]
 
         for column, count in self.analysis["missing_values"].items():
@@ -22,6 +26,7 @@ class DatasetReport:
         return lines
 
     def outlier_lines(self) -> list[str]:
+        """Return formatted potential-outlier information."""
         lines = ["--- Potential Outliers ---"]
 
         for column, count in self.outliers.items():

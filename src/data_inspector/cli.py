@@ -1,11 +1,12 @@
 import sys
 
-from .analyzer import load_dataset, analyze_dataset, detect_outliers
+from .analyzer import analyze_dataset, detect_outliers, load_dataset
 from .report import DatasetReport
-from .visualizer import plot_numeric_distribution, plot_correlation_heatmap
+from .visualizer import plot_correlation_heatmap, plot_numeric_distribution
 
 
 def main():
+    """Run the command-line dataset inspection workflow."""
     if len(sys.argv) < 2:
         print("Please provide a CSV file.")
         return
