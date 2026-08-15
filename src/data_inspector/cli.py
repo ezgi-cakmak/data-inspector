@@ -33,6 +33,9 @@ def main():
     heatmap_path = plot_correlation_heatmap(dataset)
     print(f"Correlation heatmap saved to: {heatmap_path}")
 
+    report_path = report.save()
+    print(f"Text report saved to: {report_path}")
+
     print()
 
     for line in report.summary_lines():
