@@ -129,6 +129,18 @@ data-inspector/
 └── README.md
 ```
 
+## Design Decisions
+
+The project was designed as a small reusable Python package rather than a single analysis script. Dataset analysis, visualization, report generation, and command-line execution are separated into different modules so that each component has a clear responsibility and can be reused independently.
+
+The IQR method was selected for potential outlier detection because it is simple, interpretable, and does not assume that the data follows a normal distribution. Detected values are therefore reported as potential outliers rather than automatically treated as errors.
+
+Numerical and categorical columns are handled separately because they require different types of summaries. Numerical variables are used for descriptive statistics, correlations, and visualizations, while categorical variables are summarized using their number of unique values and most frequent observations.
+
+The program also handles datasets without numerical columns. In this case, numerical visualizations and correlation analysis are skipped when they are not applicable, while the remaining dataset inspection continues normally.
+
+CSV was chosen as the supported input format to keep the scope focused on the core goals of the project. Support for additional formats could be added in future versions without changing the overall package structure.
+
 ## Package Design
 
 The project is organized into reusable components.
