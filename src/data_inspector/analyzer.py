@@ -20,6 +20,7 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "rows": len(df),
         "columns": len(df.columns),
         "missing_values": df.isnull().sum().to_dict(),
+        "missing_percentages": (df.isnull().mean() * 100).round(2).to_dict(),
         "duplicate_rows": int(df.duplicated().sum()),
         "data_types": df.dtypes.astype(str).to_dict(),
         "numeric_summary": df.describe().to_dict(),

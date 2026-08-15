@@ -18,7 +18,8 @@ def main():
 
    print("Missing values:")
    for column, count in analysis["missing_values"].items():
-       print(f"- {column}: {count}")
+       percentage = analysis["missing_percentages"][column]
+       print(f"- {column}: {count} ({percentage}%)")
 
    print("Data types:")
    for column, dtype in analysis["data_types"].items():
