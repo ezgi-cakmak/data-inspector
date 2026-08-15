@@ -1,6 +1,6 @@
 import sys
 
-from .analyzer import load_dataset, analyze_dataset
+from .analyzer import load_dataset, analyze_dataset, detect_outliers
 
 
 def main():
@@ -11,6 +11,7 @@ def main():
    file_path = sys.argv[1]
    dataset = load_dataset(file_path)
    analysis = analyze_dataset(dataset)
+   outliers = detect_outliers(dataset)
 
    print(f"Rows: {analysis['rows']}")
    print(f"Columns: {analysis['columns']}")
@@ -31,6 +32,10 @@ def main():
        print(f"  mean: {stats.get('mean')}")
        print(f"  min: {stats.get('min')}")
        print(f"  max: {stats.get('max')}")
+
+   print("Potential outliers:")
+   for column, count in outliers.items():
+       print(f"- {column}: {count}")
 
    print("Numeric columns:")
    for column in analysis["numeric_columns"]:

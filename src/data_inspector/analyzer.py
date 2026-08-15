@@ -27,3 +27,21 @@ def analyze_dataset(df: pd.DataFrame) -> dict:
         "numeric_columns": df.select_dtypes(include="number").columns.tolist(),
         "categorical_columns": df.select_dtypes(exclude="number").columns.tolist(),
     }
+
+def detect_outliers(df: pd.DataFrame) -> dict:
+    outliers = {}
+
+    numeric_columns = df.select_dtypes(include="number").columns
+
+    for column in numeric_columns:
+        q1 = df[column].quantile(0.25)
+        q3 = df[column].quantile(0.75)
+        iqr = q3 - q1
+
+        lower_bound = q1 - 1.5 * iqr
+        upper_bound = q3 + 1.5 * iqr
+
+        count = ((df[column] < lower_bound) | (df[column] > upper_bound)).sum()
+        outliers[column] = int(count)
+
+    return outliers
